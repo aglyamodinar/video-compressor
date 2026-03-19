@@ -1,0 +1,25 @@
+# Build artifacts
+build/
+dist/
+*.spec
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Video files (too large for git)
+*.mov
+*.mp4
+*.mkv
+*.avi
+*.webm
+*.m4v
+telegram_ready/
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code
+.claude/
