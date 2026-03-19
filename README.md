@@ -6,6 +6,19 @@ Free offline video compression tool. Works locally on your computer — no files
 
 ---
 
+## Download Ready-Made App
+
+Go to [Releases](https://github.com/aglyamodinar/video-compressor/releases) and download:
+
+| OS | File | What to do |
+|----|------|-----------|
+| **macOS** | `VideoCompressor-macOS.zip` | Unzip → right-click → Open |
+| **Windows** | `VideoCompressor-Windows.zip` | Unzip → run `VideoCompressor.exe` |
+
+No Python, no terminal, no setup required.
+
+---
+
 ## One-Command Install (macOS)
 
 ```bash
@@ -104,6 +117,19 @@ See [CLAUDE.md](CLAUDE.md) for full architecture and instructions.
 ---
 
 # Русская версия
+
+## Скачать готовое приложение
+
+Перейдите в [Releases](https://github.com/aglyamodinar/video-compressor/releases) и скачайте:
+
+| ОС | Файл | Что делать |
+|----|------|-----------|
+| **macOS** | `VideoCompressor-macOS.zip` | Распаковать → правый клик → Открыть |
+| **Windows** | `VideoCompressor-Windows.zip` | Распаковать → запустить `VideoCompressor.exe` |
+
+Не нужен Python, терминал, никакая установка.
+
+---
 
 ## Установка одной командой (macOS)
 

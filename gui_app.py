@@ -413,8 +413,14 @@ class App(tk.Tk):
                 self.open_folder_btn.pack(side="left", padx=(10, 0))
 
     def _open_output_folder(self) -> None:
-        if hasattr(self, "_last_output") and self._last_output.parent.exists():
+        if not hasattr(self, "_last_output") or not self._last_output.parent.exists():
+            return
+        if sys.platform == "win32":
+            subprocess.Popen(["explorer", "/select,", str(self._last_output)])
+        elif sys.platform == "darwin":
             subprocess.Popen(["open", "-R", str(self._last_output)])
+        else:
+            subprocess.Popen(["xdg-open", str(self._last_output.parent)])
 
     def _on_close(self) -> None:
         if self.process is not None:
