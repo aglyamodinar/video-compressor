@@ -6,23 +6,24 @@ Free offline video compression tool. Works locally on your computer — no files
 
 ---
 
-## Quick Start (2 steps)
+## One-Command Install (macOS)
 
-### 1. Install
+```bash
+git clone https://github.com/aglyamodinar/video-compressor.git && cd video-compressor && bash install.sh
+```
+
+This will install all dependencies, build `VideoCompressor.app`, and launch it. Done.
+
+---
+
+## Manual Setup
+
+If you prefer to run without building `.app`:
 
 ```bash
 git clone https://github.com/aglyamodinar/video-compressor.git
 cd video-compressor
 bash setup.sh
-```
-
-The script automatically installs all dependencies (ffmpeg, Python, tkinter).
-
-### 2. Run
-
-**GUI (for everyone):**
-
-```bash
 python3 gui_app.py
 ```
 
@@ -90,23 +91,24 @@ On macOS everything is installed automatically via `setup.sh`.
 
 # Русская версия
 
-## Быстрый старт (2 шага)
+## Установка одной командой (macOS)
 
-### 1. Установка
+```bash
+git clone https://github.com/aglyamodinar/video-compressor.git && cd video-compressor && bash install.sh
+```
+
+Установит зависимости, соберёт `VideoCompressor.app` и запустит. Всё.
+
+---
+
+## Ручная установка
+
+Если не хотите собирать `.app`:
 
 ```bash
 git clone https://github.com/aglyamodinar/video-compressor.git
 cd video-compressor
 bash setup.sh
-```
-
-Скрипт автоматически установит все зависимости (ffmpeg, Python, tkinter).
-
-### 2. Запуск
-
-**С графическим интерфейсом (для всех):**
-
-```bash
 python3 gui_app.py
 ```
 
