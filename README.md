@@ -12,8 +12,7 @@ Go to [Releases](https://github.com/aglyamodinar/video-compressor/releases) and 
 
 | OS | File | What to do |
 |----|------|-----------|
-| **macOS (M1/M2/M3/M4)** | `VideoCompressor-macOS-AppleSilicon.zip` | Unzip → right-click → Open |
-| **macOS (Intel)** | `VideoCompressor-macOS-Intel.zip` | Unzip → right-click → Open |
+| **macOS** | `VideoCompressor-macOS.zip` | Unzip → right-click → Open |
 | **Windows** | `VideoCompressor-Windows.zip` | Unzip → run `VideoCompressor.exe` |
 
 No Python, no terminal, no setup required.
@@ -125,8 +124,7 @@ See [CLAUDE.md](CLAUDE.md) for full architecture and instructions.
 
 | ОС | Файл | Что делать |
 |----|------|-----------|
-| **macOS (M1/M2/M3/M4)** | `VideoCompressor-macOS-AppleSilicon.zip` | Распаковать → правый клик → Открыть |
-| **macOS (Intel)** | `VideoCompressor-macOS-Intel.zip` | Распаковать → правый клик → Открыть |
+| **macOS** | `VideoCompressor-macOS.zip` | Распаковать → правый клик → Открыть |
 | **Windows** | `VideoCompressor-Windows.zip` | Распаковать → запустить `VideoCompressor.exe` |
 
 Не нужен Python, терминал, никакая установка.
