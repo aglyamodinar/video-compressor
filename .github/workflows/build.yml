@@ -8,6 +8,9 @@ on:
 permissions:
   contents: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build-macos:
     runs-on: macos-latest
@@ -54,29 +57,46 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
+      - name: Install ffmpeg
         run: |
-          choco install ffmpeg -y
-          pip install pyinstaller
+          choco install ffmpeg-full -y --no-progress
+          refreshenv
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Find ffmpeg paths
+        id: ffmpeg
+        shell: pwsh
+        run: |
+          $ffmpeg = (Get-Command ffmpeg -ErrorAction SilentlyContinue).Source
+          if (-not $ffmpeg) {
+            # choco puts it here
+            $ffmpeg = (Get-ChildItem -Path "C:\ProgramData\chocolatey\lib\ffmpeg-full\tools\ffmpeg\bin\ffmpeg.exe" -ErrorAction SilentlyContinue).FullName
+          }
+          if (-not $ffmpeg) {
+            $ffmpeg = (Get-ChildItem -Path "C:\ProgramData\chocolatey" -Recurse -Filter "ffmpeg.exe" -ErrorAction SilentlyContinue | Select-Object -First 1).FullName
+          }
+          $ffprobe = $ffmpeg -replace 'ffmpeg\.exe$','ffprobe.exe'
+          echo "FFMPEG_PATH=$ffmpeg" >> $env:GITHUB_OUTPUT
+          echo "FFPROBE_PATH=$ffprobe" >> $env:GITHUB_OUTPUT
+          echo "Found ffmpeg: $ffmpeg"
+          echo "Found ffprobe: $ffprobe"
 
       - name: Build .exe
-        shell: bash
+        shell: pwsh
         run: |
-          FFMPEG_PATH=$(which ffmpeg)
-          FFPROBE_PATH=$(which ffprobe)
-          pyinstaller \
-            --name "VideoCompressor" \
-            --windowed \
-            --add-binary "${FFMPEG_PATH};." \
-            --add-binary "${FFPROBE_PATH};." \
-            --noconfirm \
+          pyinstaller `
+            --name "VideoCompressor" `
+            --windowed `
+            --add-binary "${{ steps.ffmpeg.outputs.FFMPEG_PATH }};." `
+            --add-binary "${{ steps.ffmpeg.outputs.FFPROBE_PATH }};." `
+            --noconfirm `
             gui_app.py
 
       - name: Create ZIP
-        shell: bash
-        run: |
-          cd dist
-          7z a ../VideoCompressor-Windows.zip VideoCompressor/
+        shell: pwsh
+        run: Compress-Archive -Path "dist\VideoCompressor\*" -DestinationPath "VideoCompressor-Windows.zip"
 
       - uses: actions/upload-artifact@v4
         with:
