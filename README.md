@@ -89,6 +89,20 @@ On macOS everything is installed automatically via `setup.sh`.
 
 ---
 
+## For AI Agents (Claude Code, Codex, etc.)
+
+See [CLAUDE.md](CLAUDE.md) for full architecture and instructions.
+
+**TL;DR for agents:**
+- To compress a video: `python3 video_compressor.py INPUT --preset telegram`
+- To launch GUI: `python3 gui_app.py`
+- To build .app: `bash install.sh`
+- Core logic is in `video_compressor.py`, GUI is in `gui_app.py` (imports from core)
+- Presets: `archive` (best quality), `telegram`, `web`, `mobile` (smallest)
+- Adding a preset: add to `PRESETS` in video_compressor.py + `PRESET_UI` / `PRESET_ORDER` in gui_app.py
+
+---
+
 # Русская версия
 
 ## Установка одной командой (macOS)
