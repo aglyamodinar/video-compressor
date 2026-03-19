@@ -12,7 +12,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  build-macos:
+  build-macos-arm:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,12 +41,48 @@ jobs:
       - name: Create ZIP
         run: |
           cd dist
-          zip -r ../VideoCompressor-macOS.zip VideoCompressor.app
+          zip -r ../VideoCompressor-macOS-AppleSilicon.zip VideoCompressor.app
 
       - uses: actions/upload-artifact@v4
         with:
-          name: macos-build
-          path: VideoCompressor-macOS.zip
+          name: macos-arm-build
+          path: VideoCompressor-macOS-AppleSilicon.zip
+
+  build-macos-intel:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          brew install ffmpeg
+          pip install pyinstaller
+
+      - name: Build .app
+        run: |
+          FFMPEG_PATH=$(which ffmpeg)
+          FFPROBE_PATH=$(which ffprobe)
+          pyinstaller \
+            --name "VideoCompressor" \
+            --windowed \
+            --add-binary "${FFMPEG_PATH}:." \
+            --add-binary "${FFPROBE_PATH}:." \
+            --noconfirm \
+            gui_app.py
+
+      - name: Create ZIP
+        run: |
+          cd dist
+          zip -r ../VideoCompressor-macOS-Intel.zip VideoCompressor.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-intel-build
+          path: VideoCompressor-macOS-Intel.zip
 
   build-windows:
     runs-on: windows-latest
@@ -71,7 +107,6 @@ jobs:
         run: |
           $ffmpeg = (Get-Command ffmpeg -ErrorAction SilentlyContinue).Source
           if (-not $ffmpeg) {
-            # choco puts it here
             $ffmpeg = (Get-ChildItem -Path "C:\ProgramData\chocolatey\lib\ffmpeg-full\tools\ffmpeg\bin\ffmpeg.exe" -ErrorAction SilentlyContinue).FullName
           }
           if (-not $ffmpeg) {
@@ -104,12 +139,16 @@ jobs:
           path: VideoCompressor-Windows.zip
 
   release:
-    needs: [build-macos, build-windows]
+    needs: [build-macos-arm, build-macos-intel, build-windows]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: macos-build
+          name: macos-arm-build
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: macos-intel-build
 
       - uses: actions/download-artifact@v4
         with:
@@ -119,6 +158,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            VideoCompressor-macOS.zip
+            VideoCompressor-macOS-AppleSilicon.zip
+            VideoCompressor-macOS-Intel.zip
             VideoCompressor-Windows.zip
           generate_release_notes: true
