@@ -38,6 +38,10 @@ jobs:
             --noconfirm \
             gui_app.py
 
+      - name: Ad-hoc sign .app
+        run: |
+          codesign --force --deep -s - dist/VideoCompressor.app
+
       - name: Create ZIP
         run: |
           cd dist
@@ -121,3 +125,18 @@ jobs:
             VideoCompressor-macOS.zip
             VideoCompressor-Windows.zip
           generate_release_notes: true
+          body: |
+            ## Установка
+
+            ### macOS
+            1. Скачайте `VideoCompressor-macOS.zip` и распакуйте
+            2. Если при запуске macOS пишет «Приложение повреждено» — откройте Терминал и выполните:
+               ```
+               xattr -cr путь/к/VideoCompressor.app
+               ```
+               Например: `xattr -cr ~/Downloads/VideoCompressor.app`
+            3. После этого приложение запустится нормально
+
+            ### Windows
+            1. Скачайте `VideoCompressor-Windows.zip` и распакуйте
+            2. Запустите `VideoCompressor.exe`

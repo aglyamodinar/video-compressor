@@ -12,10 +12,16 @@ Go to [Releases](https://github.com/aglyamodinar/video-compressor/releases) and 
 
 | OS | File | What to do |
 |----|------|-----------|
-| **macOS** | `VideoCompressor-macOS.zip` | Unzip → right-click → Open |
+| **macOS** | `VideoCompressor-macOS.zip` | Unzip → see note below |
 | **Windows** | `VideoCompressor-Windows.zip` | Unzip → run `VideoCompressor.exe` |
 
 No Python, no terminal, no setup required.
+
+> **macOS note:** If macOS says the app is "damaged", open Terminal and run:
+> ```
+> xattr -cr ~/Downloads/VideoCompressor.app
+> ```
+> This removes the quarantine flag from the unsigned app. After that it will open normally.
 
 ---
 
@@ -124,10 +130,16 @@ See [CLAUDE.md](CLAUDE.md) for full architecture and instructions.
 
 | ОС | Файл | Что делать |
 |----|------|-----------|
-| **macOS** | `VideoCompressor-macOS.zip` | Распаковать → правый клик → Открыть |
+| **macOS** | `VideoCompressor-macOS.zip` | Распаковать → см. примечание ниже |
 | **Windows** | `VideoCompressor-Windows.zip` | Распаковать → запустить `VideoCompressor.exe` |
 
 Не нужен Python, терминал, никакая установка.
+
+> **Примечание для macOS:** Если macOS пишет «Приложение повреждено» — откройте Терминал и выполните:
+> ```
+> xattr -cr ~/Downloads/VideoCompressor.app
+> ```
+> Это снимает карантинный флаг с неподписанного приложения. После этого оно откроется нормально.
 
 ---
 
